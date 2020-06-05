@@ -10,19 +10,10 @@
     {
         var screenShotPath = "~/catalog/" + (report.ScreenShotPath ?? "noimage.png");
         var sensitivity = (report.Sensitive ? "fas fa-lock" : "fas fa-lock-open");
-        var confidenceIcon = "fas fa-exclamation-triangle";
-        if (report.Confidence == Models.Enums.DataConfidence.Reviewed)
-        {
-            confidenceIcon = "fas fa-check";
-        }
-        else if (report.Confidence == Models.Enums.DataConfidence.Validated)
-        {
-            confidenceIcon = "fas fa-check-double";
-        }
-        else if (report.Confidence == Models.Enums.DataConfidence.Certified)
-        {
-            confidenceIcon = "fas fa-award";
-        }
+        var confidenceIcon = (report.Confidence == Models.Enums.DataConfidence.Certified ? "fas fa-award"
+            : (report.Confidence == Models.Enums.DataConfidence.Reviewed ? "fas fa-check"
+            : (report.Confidence == Models.Enums.DataConfidence.Validated ? "fas fa-check-double"
+            : "fas fa-exclamation-triangle")));
 
         <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
             <div class="card-header" style="height:60px;">
