@@ -24,19 +24,19 @@
             <div class="card-footer">
                 <div>
                     <button type="button" class="btn btn-sm" disabled>
-                        <i class="fas fa-eye"></i> @report.UsageCount
+                        <i class="fas fa-eye" title="Number of views in the past 6 months"></i> @report.UsageCount
                     </button>
                     <button type="button" class="btn btn-sm" disabled>
-                        <i class="@sensitivity"></i>
+                        <i class="@sensitivity" title="Indicates level of content sensitivity"></i>
                     </button>
                     <a class="btn btn-sm" asp-page="/Catalog/Details" asp-route-Id="@report.Id">
-                        <i class="fas fa-info-circle"></i>
+                        <i class="fas fa-info-circle" title="Get more details about this report"></i>
                     </a>
                     <button type="button" class="btn btn-sm">
-                        <i class="fas fa-cart-plus"></i>
+                        <i class="fas fa-cart-plus" title="Request this report by adding it to your cart"></i>
                     </button>
                     <a class="btn btn-sm" asp-page="/Catalog/Edit" asp-route-Id="@report.Id">
-                        <i class="far fa-edit"></i>
+                        <i class="far fa-edit" title="Edit this report catalog entry"></i>
                     </a>
                 </div>
                 <div>
@@ -65,7 +65,7 @@
             </div>
             <div class="modal-body">
                 A reporting solution is rated by the confidence in the accuracy of results.  We determine this confidence
-                based upon the complexity of the data and the effort put forth to validate the results.  A report that is 
+                based upon the complexity of the data and the effort put forth to validate the results.  A report that is
                 rated Certified has been through rigorus validation by multiple subject matter experts, however an unverified
                 report has been through little verification and should not be used for decision making without further verification.
             </div>
