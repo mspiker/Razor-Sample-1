@@ -18,6 +18,6 @@ namespace RazorSample1.Models.Enums
         Validated = 2,
         [Display(Name = "Certified", 
             Description = "Multiple subject matter experts have reviewed this solution and through rigorus validation techniques determined results to be accurate.")]
-        Verified = 3
+        Certified = 3
     }
 }

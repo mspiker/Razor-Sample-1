@@ -11,10 +11,18 @@
         var screenShotPath = "~/catalog/" + (report.ScreenShotPath ?? "noimage.png");
         var sensitivity = (report.Sensitive ? "fas fa-lock" : "fas fa-lock-open");
         var confidenceIcon = "fas fa-exclamation-triangle";
-        //if (report.Confidence == Models.Enums.DataConfidence.Reviewed)
-        //{
-        //    confidenceIcon = ""
-        //}
+        if (report.Confidence == Models.Enums.DataConfidence.Reviewed)
+        {
+            confidenceIcon = "fas fa-check";
+        }
+        else if (report.Confidence == Models.Enums.DataConfidence.Validated)
+        {
+            confidenceIcon = "fas fa-check-double";
+        }
+        else if (report.Confidence == Models.Enums.DataConfidence.Certified)
+        {
+            confidenceIcon = "fas fa-award";
+        }
 
         <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
             <div class="card-header" style="height:60px;">
@@ -23,27 +31,56 @@
             <img class="card-img-top imageThumbnail" style="height: 120px" src="@screenShotPath" asp-append-version="true" />
 
             <div class="card-footer">
-                <button type="button" class="btn btn-sm" disabled>
-                    <i class="fas fa-eye"></i> @report.UsageCount
-                </button>
-                <button type="button" class="btn btn-sm" disabled>
-                    <i class="@sensitivity"></i>
-                </button>
-                <button type="button" class="btn btn-sm">
-                    <i class="fas fa-info-circle"></i>
-                </button>
-                <button type="button" class="btn btn-sm">
-                    <i class="fas fa-cart-plus"></i>
-                </button>
-                <button type="button" class="btn btn-sm">
-                    <i class="far fa-edit"></i>
-                </button>
-
-                @*<a asp-page="/Catalog/Details" asp-route-Id="@report.Id" class="btn btn-primary m-1">View</a>
-                    <a asp-page="/Catalog/Edit" asp-route-Id="@report.Id" class="btn btn-primary m-1">Edit</a>
-                    <a asp-page="/Catalog/Delete" asp-route-Id="@report.Id" class="btn btn-danger m-1">Delete</a>*@
+                <div>
+                    <button type="button" class="btn btn-sm" disabled>
+                        <i class="fas fa-eye"></i> @report.UsageCount
+                    </button>
+                    <button type="button" class="btn btn-sm" disabled>
+                        <i class="@sensitivity"></i>
+                    </button>
+                    <a class="btn btn-sm" asp-page="/Catalog/Details" asp-route-Id="@report.Id">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <button type="button" class="btn btn-sm">
+                        <i class="fas fa-cart-plus"></i>
+                    </button>
+                    <a class="btn btn-sm" asp-page="/Catalog/Edit" asp-route-Id="@report.Id">
+                        <i class="far fa-edit"></i>
+                    </a>
+                </div>
+                <div>
+                    <i class="@confidenceIcon"></i> @report.Confidence
+                    <a id="moreInfo" class="btn btn-sm" data-toggle="modal" data-target="#exampleModalCenter" data-content="@report.Confidence">
+                        (More information)
+                    </a>
+                </div>
             </div>
 
         </div>
     }
+</div>
+
+
+
+<!-- Modal; convert later to a partial view -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Report Confidence</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                A reporting solution is rated by the confidence in the accuracy of results.  We determine this confidence
+                based upon the complexity of the data and the effort put forth to validate the results.  A report that is 
+                rated Certified has been through rigorus validation by multiple subject matter experts, however an unverified
+                report has been through little verification and should not be used for decision making without further verification.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
