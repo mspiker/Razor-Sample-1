@@ -54,7 +54,8 @@ namespace RazorSample1.Services
                     Product = Models.Enums.Products.Epic,
                     Topics = new List<Models.Enums.Topics>() { Models.Enums.Topics.OPClinical, Models.Enums.Topics.IPQuality, Models.Enums.Topics.PhysicianClinical },
                     UsageCount =2212,
-                    Sensitive = false
+                    Sensitive = false,
+                    Confidence = Models.Enums.DataConfidence.Reviewed
                 },
 
                 new Item() {Id=5, Title="Patient Accounts Receivable Balances <> $0",

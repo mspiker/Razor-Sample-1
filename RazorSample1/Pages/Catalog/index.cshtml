@@ -3,75 +3,121 @@
 @{
     ViewData["Title"] = "index";
 }
-@*https://www.w3schools.com/icons/icons_reference.asp*@
-<h3>Most Popular Reports</h3>
+
+@*https://www.red-gate.com/simple-talk/dotnet/asp-net/tips-and-tricks-about-razor-partial-views/*@
+
+    <form method="get">
+        <div class="input-group">
+            <input class="form-control" asp-for="SearchTerm" />
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+
+        <div style="padding-top: 12px">
+            <a class="btn btn-primary" asp-page="/Catalog/Edit">
+                <i class="fas fa-plus-square fa-lg" title="Create a new report solution"></i> Create
+            </a>
+            <a class="btn btn-primary" data-toggle="collapse" href="#advancedSearch" role="button" aria-expanded="false" aria-controls="advancedSearch">
+                <i class="fas fa-cog fa-lg" title="Avanced Search"></i> Advanced Search
+            </a>
+            
+            <div class="collapse" id="advancedSearch" style="padding-top: 6px;">
+                <div class="card card-body">
+                    <h4>Advanced Search</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="keywords" placeholder="Keywords">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                @*Column 1*@
+                                <div class="col-sm-4">
+                                    <label class="col-form-label col-form-label-lg">Reporting Tools</label>
+                                    @foreach (Models.Enums.ReportingTools tool in Enum.GetValues(typeof(Models.Enums.ReportingTools)))
+                                    {
+                                        var toolId = (int)tool;
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="Tools" type="checkbox" value="@toolId" />
+                                            <label class="form-check-label" for="Tools">@tool</label>
+                                        </div>
+                                    }
+                                    <label class="col-form-label col-form-label-lg">Products</label>
+                                    @foreach (Models.Enums.Products product in Enum.GetValues(typeof(Models.Enums.Products)))
+                                    {
+                                        var productId = (int)product;
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="Product" type="checkbox" value="@productId" />
+                                            <label class="form-check-label" for="Product">@product</label>
+                                        </div>
+                                    }
+                                </div>
+                                @*Column 2*@
+                                <div class="col-sm-4">
+                                    <label class="col-form-label col-form-label-lg">Topics</label>
+                                    @foreach (Models.Enums.Topics topic in Enum.GetValues(typeof(Models.Enums.Topics)))
+                                    {
+                                        var topicId = (int)topic;
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="Topic" type="checkbox" value="@topicId" />
+                                            <label class="form-check-label" for="Topic">@topic</label>
+                                        </div>
+                                    }
+                                </div>
+                                @*Column 3*@
+                                <div class="col-sm-4">
+                                    <label class="col-form-label col-form-label-lg">Target Consumer</label>
+                                    @foreach (Models.Enums.Topics consumer in Enum.GetValues(typeof(Models.Enums.Consumers)))
+                                    {
+                                        var consumerId = (int)consumer;
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="Consumer" type="checkbox" value="@consumerId" />
+                                            <label class="form-check-label" for="Consumer">@consumer</label>
+                                        </div>
+                                    }
+                                    <label class="col-form-label col-form-label-lg">Data Confidence</label>
+                                    @foreach (Models.Enums.DataConfidence confidence in Enum.GetValues(typeof(Models.Enums.DataConfidence)))
+                                    {
+                                        var confidenceId = (int)confidence;
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="Confidence" type="checkbox" value="@confidenceId" />
+                                            <label class="form-check-label" for="Confidence">@confidence</label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+
+        
+
+    </form>
+
 <div class="card-deck">
     @foreach (var report in Model.Items)
     {
-        var screenShotPath = "~/catalog/" + (report.ScreenShotPath ?? "noimage.png");
-        var sensitivity = (report.Sensitive ? "fas fa-lock" : "fas fa-lock-open");
-        var confidenceIcon = (report.Confidence == Models.Enums.DataConfidence.Certified ? "fas fa-award"
-            : (report.Confidence == Models.Enums.DataConfidence.Reviewed ? "fas fa-check"
-            : (report.Confidence == Models.Enums.DataConfidence.Validated ? "fas fa-check-double"
-            : "fas fa-exclamation-triangle")));
-
-        <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
-            <div class="card-header" style="height:60px;">
-                <strong>@report.Title</strong>
-            </div>
-            <img class="card-img-top imageThumbnail" style="height: 120px" src="@screenShotPath" asp-append-version="true" />
-
-            <div class="card-footer">
-                <div>
-                    <button type="button" class="btn btn-sm" disabled>
-                        <i class="fas fa-eye" title="Number of views in the past 6 months"></i> @report.UsageCount
-                    </button>
-                    <button type="button" class="btn btn-sm" disabled>
-                        <i class="@sensitivity" title="Indicates level of content sensitivity"></i>
-                    </button>
-                    <a class="btn btn-sm" asp-page="/Catalog/Details" asp-route-Id="@report.Id">
-                        <i class="fas fa-info-circle" title="Get more details about this report"></i>
-                    </a>
-                    <button type="button" class="btn btn-sm">
-                        <i class="fas fa-cart-plus" title="Request this report by adding it to your cart"></i>
-                    </button>
-                    <a class="btn btn-sm" asp-page="/Catalog/Edit" asp-route-Id="@report.Id">
-                        <i class="far fa-edit" title="Edit this report catalog entry"></i>
-                    </a>
-                </div>
-                <div>
-                    <i class="@confidenceIcon"></i> @report.Confidence
-                    <a id="moreInfo" class="btn btn-sm" data-toggle="modal" data-target="#exampleModalCenter" data-content="@report.Confidence">
-                        (More information)
-                    </a>
-                </div>
-            </div>
-
-        </div>
+        <partial name="_CatalogItemPartial" model="report" />
     }
 </div>
 
-
-
-<!-- Modal; convert later to a partial view -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Report Confidence</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                A reporting solution is rated by the confidence in the accuracy of results.  We determine this confidence
-                based upon the complexity of the data and the effort put forth to validate the results.  A report that is
-                rated Certified has been through rigorus validation by multiple subject matter experts, however an unverified
-                report has been through little verification and should not be used for decision making without further verification.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active">
+            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
