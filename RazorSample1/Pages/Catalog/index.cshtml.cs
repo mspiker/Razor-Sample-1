@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http.Features;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorSample1.Models;
 using RazorSample1.Services;
-using System.ComponentModel;
 using RazorSample1.Models.Enums;
 
 namespace RazorSample1.Pages.Catalog
@@ -32,7 +27,7 @@ namespace RazorSample1.Pages.Catalog
 
         public void OnGet()
         {
-            Items = itemRepository.GetAllItems();    
+            Items = itemRepository.GetAllItems(10,2);    
         }
     }
 }
