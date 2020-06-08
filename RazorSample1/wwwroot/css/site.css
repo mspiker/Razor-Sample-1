@@ -81,3 +81,7 @@ body {
 .reviewed {
     color: darkblue;
 }
+
+.spacer-top {
+    padding-top: 12px;
+}

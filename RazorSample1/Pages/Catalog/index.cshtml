@@ -6,96 +6,30 @@
 
 @*https://www.red-gate.com/simple-talk/dotnet/asp-net/tips-and-tricks-about-razor-partial-views/*@
 
-<form method="get">
-    @*--SEARCH--*@
-    <div class="input-group">
-        <input class="form-control" asp-for="SearchTerm" />
-        <div class="input-group-append">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
-        </div>
-    </div>
-
-    @*--CREATE | ADVANCED SEARCH--*@
-    <a class="btn btn-primary" asp-page="/Catalog/Edit">
-        <i class="fas fa-plus-square fa-lg" title="Create a new report solution"></i> Create
-    </a>
-    <a class="btn btn-primary" data-toggle="collapse" href="#advancedSearch" role="button" aria-expanded="false" aria-controls="advancedSearch">
-        <i class="fas fa-cog fa-lg" title="Avanced Search"></i> Advanced Search
-    </a>
-    
-    @*--ADVANCED SEARCH CARD--*@
-    <div class="collapse" id="advancedSearch" style="padding-top: 6px;">
-        <div class="card card-body">
-            <h4>Advanced Search</h4>
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="keywords" placeholder="Keywords">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @*Column 1*@
-                        <div class="col-sm-4">
-                            <label class="col-form-label col-form-label-lg">Reporting Tools</label>
-                            @foreach (Models.Enums.ReportingTools tool in Enum.GetValues(typeof(Models.Enums.ReportingTools)))
-                            {
-                                var toolId = (int)tool;
-                                var toolDisplay = Services.EnumHelper<Models.Enums.ReportingTools>.GetDisplayValue(tool);
-                                <div class="form-check">
-                                    <input class="form-check-input" name="Tools" type="checkbox" value="@toolId" />
-                                    <label class="form-check-label" for="Tools">@toolDisplay</label>
-                                </div>
-                                }
-                            <label class="col-form-label col-form-label-lg">Products</label>
-                            @foreach (Models.Enums.Products product in Enum.GetValues(typeof(Models.Enums.Products)))
-                            {
-                                var productId = (int)product;
-                                <div class="form-check">
-                                    <input class="form-check-input" name="Product" type="checkbox" value="@productId" />
-                                    <label class="form-check-label" for="Product">@product</label>
-                                </div>
-                            }
-                        </div>
-                        @*Column 2*@
-                        <div class="col-sm-4">
-                            <label class="col-form-label col-form-label-lg">Topics</label>
-                            @foreach (Models.Enums.Topics topic in Enum.GetValues(typeof(Models.Enums.Topics)))
-                            {
-                                var topicId = (int)topic;
-                                <div class="form-check">
-                                    <input class="form-check-input" name="Topic" type="checkbox" value="@topicId" />
-                                    <label class="form-check-label" for="Topic">@topic</label>
-                                </div>
-                            }
-                        </div>
-                        @*Column 3*@
-                        <div class="col-sm-4">
-                            <label class="col-form-label col-form-label-lg">Target Consumer</label>
-                            @foreach (Models.Enums.Topics consumer in Enum.GetValues(typeof(Models.Enums.Consumers)))
-                            {
-                                var consumerId = (int)consumer;
-                                <div class="form-check">
-                                    <input class="form-check-input" name="Consumer" type="checkbox" value="@consumerId" />
-                                    <label class="form-check-label" for="Consumer">@consumer</label>
-                                </div>
-                            }
-                            <label class="col-form-label col-form-label-lg">Data Confidence</label>
-                            @foreach (Models.Enums.DataConfidence confidence in Enum.GetValues(typeof(Models.Enums.DataConfidence)))
-                            {
-                                var confidenceId = (int)confidence;
-                                <div class="form-check">
-                                    <input class="form-check-input" name="Confidence" type="checkbox" value="@confidenceId" />
-                                    <label class="form-check-label" for="Confidence">@confidence</label>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
+    <form method="get">
+        @*--SEARCH--*@
+        <div class="input-group">
+            <input class="form-control" asp-for="SearchTerm" />
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
             </div>
         </div>
-    </div>
-</form>
+
+        @*--CREATE | ADVANCED SEARCH--*@
+        <div class="row spacer-top">
+            <div class="col-sm-12">
+                <a class="btn btn-primary" asp-page="/Catalog/Edit">
+                    <i class="fas fa-plus-square fa-lg" title="Create a new report solution"></i> Create
+                </a>
+                <a class="btn btn-primary" data-toggle="collapse" href="#advancedSearch" role="button" aria-expanded="false" aria-controls="advancedSearch">
+                    <i class="fas fa-cog fa-lg" title="Avanced Search"></i> Advanced Search
+                </a>
+            </div>
+        </div>
+
+        @*--ADVANCED SEARCH CARD--*@
+        <partial name="_CatalogAdvancedSearchPartialView" model="null" />
+    </form>
 
 <div class="card-deck">
     @foreach (var report in Model.Items)
