@@ -1,5 +1,6 @@
 ﻿using RazorSample1.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RazorSample1.Services
 {
@@ -74,6 +75,11 @@ namespace RazorSample1.Services
                 ReportingTool = Models.Enums.ReportingTools.ReportingWorkbench
             });
             return _itemList;
+        }
+
+        public Item GetItem(int id)
+        {
+            return _itemList.FirstOrDefault(i => i.Id == id);
         }
     }
 }
