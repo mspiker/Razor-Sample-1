@@ -65,7 +65,6 @@
     <div class="card">
         <div class="card-body">
             <div class="form-group row">
-                @*Column 2*@
                 <div class="col-sm-6">
                     <label class="col-form-label col-form-label-lg">Topics</label>
                     @foreach (Topics topic in Enum.GetValues(typeof(Topics)))
@@ -84,15 +83,21 @@
                         </div>
                     }
                 </div>
-                @*Column 3*@
                 <div class="col-sm-6">
                     <label class="col-form-label col-form-label-lg">Target Consumer</label>
-                    @foreach (Models.Enums.Topics consumer in Enum.GetValues(typeof(Models.Enums.Consumers)))
+                    @foreach (Consumers consumer in Enum.GetValues(typeof(Consumers)))
                     {
                         var consumerId = (int)consumer;
+                        var consumerDisplay = Services.EnumHelper<Consumers>.GetDisplayValue(consumer);
+                        var isChecked = "";
+                        if (Model.Item.Consumers != null)
+                            isChecked = (Model.Item.Consumers.Contains(consumer) ? "checked" : "");
+
                         <div class="form-check">
-                            <input class="form-check-input" name="Consumer" type="checkbox" value="@consumerId" />
-                            <label class="form-check-label" for="Consumer">@consumer</label>
+                            <label class="form-check-label">
+                                <input class="form-check-input" name="Consumer" type="checkbox" value="@consumerId" @isChecked  />
+                                @consumer
+                            </label>
                         </div>
                     }
                 </div>

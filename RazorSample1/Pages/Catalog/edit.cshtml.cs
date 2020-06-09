@@ -23,6 +23,8 @@ namespace RazorSample1.Pages.Catalog
 
         [BindProperty]
         public List<Topics> Topics { get; set; }
+        public List<Consumers> Consumers { get; set; }
+
 
         public IActionResult OnGet(int? id)
         {
@@ -45,6 +47,7 @@ namespace RazorSample1.Pages.Catalog
             if (ModelState.IsValid)
             {
                 Item.Topics = Topics;
+                Item.Consumers = Consumers;
             }
             return Page();
         }
