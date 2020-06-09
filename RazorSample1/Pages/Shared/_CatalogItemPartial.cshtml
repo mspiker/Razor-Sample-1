@@ -3,7 +3,7 @@
 @*https://mdbootstrap.com/docs/jquery/content/icons-list/*@
 
 @{
-    var screenShotPath = "~/catalog/" + (Model.ScreenShotPath ?? "noimage.png");
+    var screenShotPath = "~/catalogScreenShots/" + (Model.ScreenShotPath ?? "noimage.png");
     var sensitivity = (Model.Sensitive ? "fas fa-lock" : "fas fa-lock-open");
     var confidenceIcon = (Model.Confidence == Models.Enums.DataConfidence.Certified ? "fas fa-award certified"
         : (Model.Confidence == Models.Enums.DataConfidence.Reviewed ? "fas fa-check reviewed"
