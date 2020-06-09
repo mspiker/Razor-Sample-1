@@ -67,6 +67,16 @@ namespace RazorSample1.Pages.Catalog
                     }
                     Item.ScreenShotPath = ProcessUploadedFile(ScreenShotPhoto);
                 }
+
+                if (Item.Id > 0)
+                {
+                    Item = itemRepository.Update(Item);
+                }
+                else
+                {
+                    Item = itemRepository.Add(Item);
+                }
+
                 return RedirectToPage("index");
             }
             

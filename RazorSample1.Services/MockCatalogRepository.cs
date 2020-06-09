@@ -62,7 +62,19 @@ namespace RazorSample1.Services
                     Consumers = new List<Models.Enums.Consumers>() { Models.Enums.Consumers.EndUser, Models.Enums.Consumers.BID},
                     Product = Models.Enums.Products.Epic
                 },
+
+                new Item() {Id=6, Title="Report with minimal parameters",
+                    Summary="This is a report that shows all patinet balances that are <> to 0.",
+                    ScreenShotPath = "bigscreen_shot.png"
+                },
             };
+        }
+
+        public Item Add(Item newItem)
+        {
+            newItem.Id = _itemList.Max(i => i.Id) + 1;
+            _itemList.Add(newItem);
+            return newItem;
         }
 
         public IEnumerable<Item> GetAllItems(int resultsPerPage, int pageOffset)
@@ -80,6 +92,24 @@ namespace RazorSample1.Services
         public Item GetItem(int id)
         {
             return _itemList.FirstOrDefault(i => i.Id == id);
+        }
+
+        public Item Update(Item updatedItem)
+        {
+            Item item = _itemList.FirstOrDefault(i => i.Id == updatedItem.Id);
+            if (item != null)
+            {
+                item.Title = updatedItem.Title;
+                item.Summary = updatedItem.Summary;
+                item.ReportingTool = updatedItem.ReportingTool;
+                item.Consumers = updatedItem.Consumers;
+                item.Product = updatedItem.Product;
+                item.Confidence = updatedItem.Confidence;
+                item.ScreenShotPath = updatedItem.ScreenShotPath;
+                item.ReportFilePath = updatedItem.ReportFilePath;
+                item.Sensitive = updatedItem.Sensitive;
+            }
+            return item;
         }
     }
 }

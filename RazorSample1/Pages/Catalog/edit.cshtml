@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Edit";
     var pageHeader = Model.Item.Id > 0 ? "Edit Catalog Item" : "Create Catalog Item";
+    var screenShotPath = "~/catalogScreenShots/" + (Model.Item.ScreenShotPath ?? "noimage.png");
 }
 
 <h1>@pageHeader</h1>
@@ -76,7 +77,7 @@
                         var isChecked = "";
                         if (Model.Item.Topics != null)
                             isChecked = (Model.Item.Topics.Contains(topic) ? "checked" : "");
-                            
+
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" name="Topics" type="checkbox" value="@topicId" @isChecked />
@@ -97,7 +98,7 @@
 
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" name="Consumer" type="checkbox" value="@consumerId" @isChecked  />
+                                <input class="form-check-input" name="Consumer" type="checkbox" value="@consumerId" @isChecked />
                                 @consumer
                             </label>
                         </div>
@@ -122,7 +123,7 @@
         <div class="col-sm-10">
             <div class="custom-file">
                 <input class="custom-file-input form-control" />
-                <label class="custom-file-label">Click here to change photo</label>
+                <label class="custom-file-label">Click here to change the report file</label>
             </div>
         </div>
     </div>
@@ -130,8 +131,12 @@
     <div class="form-group row">
         <div class="col-sm-10">
             <button type="submit" class="btn btn-primary">Save</button>
-            <a asp-page="/Inventory/Index" class="btn btn-primary">Cancel</a>
+            <a asp-page="/Catalog/Index" class="btn btn-primary">Cancel</a>
         </div>
+    </div>
+    
+    <div class="form-group row col-sm-4 offset-4">
+        <img class="imageThumbnail" style="height: 120px" src="@screenShotPath" asp-append-version="true" />
     </div>
 
 </form>

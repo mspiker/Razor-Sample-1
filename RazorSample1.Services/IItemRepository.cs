@@ -8,6 +8,10 @@ namespace RazorSample1.Services
     {
         IEnumerable<Item> GetAllItems(int resultsPerPage, int pageOffset);
         Item GetItem(int id);
+        Item Update(Item updatedItem);
+        Item Add(Item newItem);
+
+
 
     }
 }
