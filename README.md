@@ -53,7 +53,9 @@ Now that we have our page model ready, lets focus on the HTML.
 {
   var topicId = (int)topic;
   var topicDisplay = Services.EnumHelper<Topics>.GetDisplayValue(topic);
-  var topicSelected = (Model.Item.Topics.Contains(topic) ? "checked" : "");
+  var topicSelected = (Model.Item.Topics == null ?
+        (Model.Item.Topics.Contains(topic) ? "checked" : "")
+        : "");
   <div class="form-check">
     <label class="form-check-label">
       <input class="form-check-input" name="Topics" type="checkbox" value="@topicId" @topicSelected />
