@@ -72,7 +72,10 @@
                     {
                         var topicId = (int)topic;
                         var topicDisplay = Services.EnumHelper<Topics>.GetDisplayValue(topic);
-                        var isChecked = (Model.Item.Topics.Contains(topic) ? "checked" : "");
+                        var isChecked = "";
+                        if (Model.Item.Topics != null)
+                            isChecked = (Model.Item.Topics.Contains(topic) ? "checked" : "");
+                            
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" name="Topics" type="checkbox" value="@topicId" @isChecked />

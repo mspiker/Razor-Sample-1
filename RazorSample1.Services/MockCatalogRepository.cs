@@ -67,13 +67,13 @@ namespace RazorSample1.Services
 
         public IEnumerable<Item> GetAllItems(int resultsPerPage, int pageOffset)
         {
-            _itemList.Add(new Item()
-            {
-                Id = 100 + pageOffset,
-                Title = "Page placeholder " + pageOffset,
-                Summary = "This is used to test paging.",
-                ReportingTool = Models.Enums.ReportingTools.ReportingWorkbench
-            });
+            //_itemList.Add(new Item()
+            //{
+            //    Id = 100 + pageOffset,
+            //    Title = "Page placeholder " + pageOffset,
+            //    Summary = "This is used to test paging.",
+            //    ReportingTool = Models.Enums.ReportingTools.ReportingWorkbench
+            //});
             return _itemList;
         }
 
