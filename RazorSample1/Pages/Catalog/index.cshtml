@@ -6,30 +6,30 @@
 
 @*https://www.red-gate.com/simple-talk/dotnet/asp-net/tips-and-tricks-about-razor-partial-views/*@
 
-    <form method="get">
-        @*--SEARCH--*@
-        <div class="input-group">
-            <input class="form-control" asp-for="SearchTerm" />
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
-            </div>
+<form method="get">
+    @*--SEARCH--*@
+    <div class="input-group">
+        <input class="form-control" asp-for="SearchTerm" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
         </div>
+    </div>
 
-        @*--CREATE | ADVANCED SEARCH--*@
-        <div class="row spacer-top">
-            <div class="col-sm-12">
-                <a class="btn btn-primary" asp-page="/Catalog/Edit">
-                    <i class="fas fa-plus-square fa-lg" title="Create a new report solution"></i> Create
-                </a>
-                <a class="btn btn-primary" data-toggle="collapse" href="#advancedSearch" role="button" aria-expanded="false" aria-controls="advancedSearch">
-                    <i class="fas fa-cog fa-lg" title="Avanced Search"></i> Advanced Search
-                </a>
-            </div>
+    @*--CREATE | ADVANCED SEARCH--*@
+    <div class="row spacer-top">
+        <div class="col-sm-12">
+            <a class="btn btn-primary" asp-page="/Catalog/Edit">
+                <i class="fas fa-plus-square fa-lg" title="Create a new report solution"></i> Create
+            </a>
+            <a class="btn btn-primary" data-toggle="collapse" href="#advancedSearch" role="button" aria-expanded="false" aria-controls="advancedSearch">
+                <i class="fas fa-cog fa-lg" title="Avanced Search"></i> Advanced Search
+            </a>
         </div>
+    </div>
 
-        @*--ADVANCED SEARCH CARD--*@
-        <partial name="_CatalogAdvancedSearchPartialView" model="null" />
-    </form>
+    @*--ADVANCED SEARCH CARD--*@
+    <partial name="_CatalogAdvancedSearchPartialView" model="null" />
+</form>
 
 <div class="card-deck">
     @foreach (var report in Model.Items)
@@ -53,3 +53,8 @@
         </li>
     </ul>
 </nav>
+
+<partial name="Dialogs/_ConfidenceCertifiedInfoPartial" model="null" />
+<partial name="Dialogs/_ConfidenceUnverifiedInfoPartial" model="null" />
+<partial name="Dialogs/_ConfidenceReviewedInfoPartial" model="null" />
+<partial name="Dialogs/_ConfidenceValidatedInfoPartial" model="null" />
