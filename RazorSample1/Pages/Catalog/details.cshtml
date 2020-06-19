@@ -1,8 +1,34 @@
-﻿@page
+﻿@page "/catalog/view/{id:int}"
 @model RazorSample1.Pages.Catalog.detailsModel
 @{
     ViewData["Title"] = "details";
+    var screenShotPath = "~/catalogScreenShots/" + (Model.Item.ScreenShotPath ?? "noimage.png");
+
+    var confidenceIcon = (Model.Item.Confidence == Models.Enums.DataConfidence.Certified ? "fas fa-award certified"
+        : (Model.Item.Confidence == Models.Enums.DataConfidence.Reviewed ? "fas fa-check reviewed"
+        : (Model.Item.Confidence == Models.Enums.DataConfidence.Validated ? "fas fa-check-double reviewed"
+        : "fas fa-exclamation-triangle unverified")));
 }
 
-<h1>details</h1>
+
+<div class=" row justify-content-center m-3">
+    <div class="col-sm-10">
+        <div class="card">
+            <div class="card-header">
+                <h3>@Model.Item.Title</h3>
+                <p>@Model.Item.Summary</p>
+                <p><i class="@confidenceIcon"></i> @Model.Item.Confidence @Model.Item.Product @Model.Item.ReportingTool</p>
+            </div>
+            <div class="card-body text-center">
+                <img class="card-img-top imageThumbnail" src="@screenShotPath" asp-append-version="true" />
+            </div>
+            <div class="card-footer text-center">
+                <a asp-page="index" class="btn btn-primary">Back</a>
+                <a asp-page="edit" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+
+        </div>
+    </div>
+</div>
 
